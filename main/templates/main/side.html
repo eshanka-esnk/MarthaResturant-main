@@ -1,0 +1,24 @@
+{% extends "main/layout.html" %}
+{% block content %}
+  <div class="home bg-danger">
+    <div class="container">
+      <h1 class="text-center text-light mb-3">Want a Deserts Dish maybe?</h1>
+      <div class="row">
+        {% for item in item %}
+            <div class="col-sm-4">
+                <div class="card mb-3" style="height: fit-content; overflow: auto;">
+                  <img src="{{ item.image.url }}" style="height: 250px;">
+                    <div class="card-body text-center">             
+                      <h5 class="text-center"><a href="{% url 'main:dishes' item.slug %}">{{ item.title }} </a><span class="badge badge-{{ item.label_colour }}">{{ item.labels }}</span></h5>
+                      <p class="text-center">{{ item.description }}</p>
+                      <h5 class="text-center">LKR{{ item.price }}</h5>
+                      <a href="{% url 'main:add-to-carta' item.slug%}" class="btn btn-success btn-md my-0 p">Add to cart</a>
+                    </div>
+                </div>
+            </div>            
+        {% endfor %}
+        <a href="{% url 'main:cart'%}" class="btn btn-success btn-md my-0 p">skip</a>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

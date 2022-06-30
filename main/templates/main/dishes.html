@@ -1,0 +1,51 @@
+{% extends "main/layout.html" %}
+{% block content %}
+<div class="dishes">
+    <!--Main layout-->
+  <main class="mt-3 pt-4 main">
+    <div class="container dark-grey-text">
+      <div class="row wow fadeIn">
+        <div class="col-md-6 mb-4">
+          <img src="{{ item.image.url }}" class="img-fluid mt-4" alt="">
+        </div>
+        <div class="col-md-6 mb-4 information">
+          <!--Content-->
+          <div class="p-4 content">
+            <div class="mt-0">
+                <h2><u>{{ item.title }}</u><span class="badge badge-{{ item.label_colour }} ml-2">{{ item.labels }}</span></h2>
+            </div>
+            <div class="lead">
+              {% if item.description %}
+              <h5>{{ item.description }}</h5>
+              {% endif %}
+              <h3>LKR{{ item.price }} per order of {{ item.pieces}} pieces</h3>
+              <h4>{{ item.instructions }}</h4>
+              <a href="{% url 'main:add-to-carts' item.slug%}" class="btn btn-success btn-md my-0 p">Add to cart</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+    </div>
+  </main>
+  <div class="container">
+    <h1 class="text-center">Pick with a side dish</h1>
+    <div class="row">
+      {% for sideitem in sides %}
+          <div class="col-sm-4">
+              <div class="card mb-3" style="height: fit-content; overflow: auto;">
+                <img src="{{ sideitem.image.url }}" style="height: 250px;">
+                  <div class="card-body text-center">             
+                    <h5 class="text-center"><a href="{% url 'main:dishes' sideitem.slug %}">{{ sideitem.title }} </a><span class="badge badge-{{ sideitem.label_colour }}">{{ sideitem.labels }}</span></h5>
+                    <p class="text-center">{{ sideitem.description }}</p>
+                    <h5 class="text-center">LKR{{ sideitem.price }}</h5>
+                    <a href="{% url 'main:add-to-cart' sideitem.slug%}" class="btn btn-success btn-md my-0 p">Add to cart</a>
+                  </div>
+              </div>
+          </div>            
+      {% endfor %}
+    </div>
+    
+  </div>
+</div>
+{% endblock content %}
